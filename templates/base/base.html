@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shortern Url</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+  </head>
+  <body>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <b>Pyshortener</b>
+      </a>
+
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="/">
+          Add Link
+        </a>
+
+        <a class="navbar-item" href="/links/stats">
+          Statistics
+        </a>
+
+        <a class="navbar-item" href="/links/csv">
+          CSV Uploads
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="section">
+    <div class="container">
+      {% block content %}
+
+      {% endblock %}
+    </div>
+  </section>
+
+  <script type="text/javascript">
+    var input = document.getElementById( 'file-upload' );
+    var infoArea = document.getElementById( 'file-upload-filename' );
+
+    input.addEventListener( 'change', showFileName );
+
+    function showFileName( event ) {
+      
+      // the change event gives us the input it occurred in 
+      var input = event.srcElement;
+      
+      // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
+      var fileName = input.files[0].name;
+      
+      // use fileName however fits your app best, i.e. add it into a div
+      infoArea.textContent = fileName;
+    }
+  </script>
+  </body>
+</html>

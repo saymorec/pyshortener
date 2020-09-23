@@ -1,0 +1,27 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+
+  <table class = "table">
+               <thead>
+                  <tr>
+                     <th>Date Created</th>
+                     <th>Original url</th>
+                     <th>Shortened url</th>
+                     <th>Visits</th>
+                     <th></th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for stat in stats %}
+                    <tr>
+                       <td>{{ stat.created_at.strftime('%e %b %Y') }}</td>
+                       <td>{{ stat.original_url }}</td>
+                       <td><a href="{{ url + '/' + stat.short_url }}">{{ url + '/' + stat.short_url }}</a> </td>
+                       <td>{{ stat.visits }}</td>
+                    </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+
+{% endblock %}
