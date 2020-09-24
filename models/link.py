@@ -1,6 +1,5 @@
 """Link model."""
 import string 
-import re
 from google.appengine.ext import db
 
 import random 
@@ -27,14 +26,14 @@ class Link(db.Model):
             base62 = string.uppercase + string.lowercase + string.digits
             return ''.join(random.sample(list(base62), k=5))
 
-        if Link.get_entry_with_original_url(original_url):
-            return Link.get_entry_with_original_url(original_url)
+        if Link.original_url_exists(original_url):
+            return Link.original_url_exists(original_url)
 
-        short_url = get_shorter_url()
-
-        # check if shorturl exists
-        if Link.get_entry_with_shorturl(short_url):
-            return shorten_url(original_url)
+        while True:
+            short_url = get_shorter_url()
+            # check if shorturl exists
+            if not Link.shorturl_exists(short_url):
+                break
 
         new_link = Link(
             original_url=original_url,
@@ -51,13 +50,13 @@ class Link(db.Model):
         return query.fetch(10000)
 
     @staticmethod
-    def get_entry_with_shorturl(short_url):
+    def shorturl_exists(short_url):
         query = Link.all()
         query.filter('short_url =', short_url)
         return query.get() 
 
     @staticmethod
-    def get_entry_with_original_url(original_url):
+    def original_url_exists(original_url):
         query = Link.all()
         query.filter('original_url =', original_url)
         result = query.get()
@@ -65,7 +64,7 @@ class Link(db.Model):
 
     @staticmethod
     def get_original_url(short_url):
-        result = Link.get_entry_with_shorturl(short_url)
+        result = Link.shorturl_exists(short_url)
         if result:
             result.visits += 1  # increment visits
             result.put()

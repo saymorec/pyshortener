@@ -5,6 +5,7 @@ from handlers.links_handler import (
     RedirectShortLinkHandler,
     LinkStatsHandler,
     CSVHandler,
+    UploadCSVHandler,
 )
 
 from handlers.error_handler import handle_404
@@ -14,6 +15,7 @@ app = webapp2.WSGIApplication([
     ('/links/stats', LinkStatsHandler),
     (r'/([a-zA-Z0-9]{5})', RedirectShortLinkHandler),
     ('/links/csv', CSVHandler),
+    ('/links/upload_csv', UploadCSVHandler),
 ], debug=True)
 
 app.error_handlers[404] = handle_404

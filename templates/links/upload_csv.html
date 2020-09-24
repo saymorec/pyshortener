@@ -4,31 +4,51 @@
 
   <form class="form" action="{{ upload_url }}" method="post" enctype="multipart/form-data">
 
-    <div class="field">
-  <div class="file has-name is-fullwidth">
-    <label class="file-label">
-      <input class="file-input" type="file" name="resume" id="file-upload">
-      <span class="file-cta">
-        <span class="file-icon">
-          <i class="fas fa-upload"></i>
-        </span>
-        <span class="file-label">
-          Choose a file…
-        </span>
-      </span>
-      <span class="file-name" id="file-upload-filename">
-      </span>
-    </label>
-  </div>
-</div>
+      <div class="field">
+        <div class="file has-name is-fullwidth">
+          <label class="file-label">
+            <input class="file-input" type="file" name="csv_file" id="file-upload">
+            <span class="file-cta">
+              <span class="file-icon">
+                <i class="fas fa-upload"></i>
+              </span>
+              <span class="file-label">
+                Choose a file…
+              </span>
+            </span>
+            <span class="file-name" id="file-upload-filename">
+            </span>
+          </label>
+        </div>
+      </div>
 
-    <div class="field">
-      <p class="control">
-        <button class="button is-primary">
-          Submit
-        </button>
-      </p>
-    </div>
+      <div class="field">
+        <p class="control">
+          <button class="button is-primary">
+            Submit
+          </button>
+        </p>
+      </div>
   </form>
+
+
+  <script type="text/javascript">
+    var input = document.getElementById( 'file-upload' );
+    var infoArea = document.getElementById( 'file-upload-filename' );
+
+    input.addEventListener( 'change', showFileName );
+
+    function showFileName( event ) {
+      
+      // the change event gives us the input it occurred in 
+      var input = event.srcElement;
+      
+      // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
+      var fileName = input.files[0].name;
+      
+      // add fileName into a span tag
+      infoArea.textContent = fileName;
+    }
+  </script>
 
 {% endblock %}
